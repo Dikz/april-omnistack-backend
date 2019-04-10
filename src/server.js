@@ -15,9 +15,13 @@ io.on('connection', socket => {
     })
 })
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-duosl.mongodb.net/omnistack?retryWrites=true`, {
-    useNewUrlParser: true
-})
+try {
+    mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-duosl.mongodb.net/omnistack?retryWrites=true`, {
+        useNewUrlParser: true
+    })
+} catch(err) {
+    console.log(err)
+}
 
 app.use((req, res, next) => {
     req.io = io
